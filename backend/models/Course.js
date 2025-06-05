@@ -7,6 +7,6 @@ const CourseSchema = new mongoose.Schema({
     image: String,
     date: String, // o Date
     mode: { type: String, enum: ['online', 'in presenza', 'blended'] },
-  }, { timestamps: true });
-  
-  module.exports = mongoose.model('Course', CourseSchema);
+}, { timestamps: true });
+
+module.exports = mongoose.model('Course', CourseSchema);

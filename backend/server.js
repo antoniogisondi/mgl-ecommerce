@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express');
 const cors = require('cors')
+const connectDB = require('./config/db')
 const port = process.env.PORT
 
 const app = express()
@@ -15,3 +16,5 @@ app.get('/api/ping', (req,res) => {
 app.listen(port, () => {
     console.log(`Server disponibile su http://localhost:${port}`)
 })
+
+connectDB()
