@@ -25,8 +25,10 @@ app.use(session({
 }))
 
 const adminRoutes = require('./routes/adminRoutes')
+const api = require('./routes/apiRoutes')
 
 app.use('/admin', adminRoutes)
+app.use('/api', api)
 
 app.listen(port, () => {
     console.log(`Server disponibile su http://localhost:${port}`)
