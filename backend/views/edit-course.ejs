@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Modifica corso</h2>
+    <form method="POST" enctype="multipart/form-data" action="/admin/courses/edit/<%= course._id %>?_method=PUT">
+        <label>Titolo:</label>
+        <input type="text" name="title" value="<%= course.title %>" required /><br>
+
+        <label>Descrizione:</label>
+        <textarea name="description"><%= course.description %></textarea><br>
+
+        <label>Prezzo (€):</label>
+        <input type="number" name="price" step="0.01" value="<%= course.price %>" /><br>
+
+        <label>Modalità:</label>
+        <select name="mode">
+            <option value="online" <%= course.mode === 'online' ? 'selected' : '' %>>Online</option>
+            <option value="in presenza" <%= course.mode === 'in presenza' ? 'selected' : '' %>>In presenza</option>
+            <option value="blended" <%= course.mode === 'blended' ? 'selected' : '' %>>Blended</option>
+        </select><br>
+
+        <label>Immagine attuale:</label><br>
+        <% if (course.image) { %>
+            <img src="<%= course.image %>" style="width: 150px;" /><br>
+        <% } else { %>
+            <em>Nessuna immagine</em><br>
+        <% } %>
+
+        <label>Nuova immagine (opzionale):</label>
+        <input type="file" name="image" /><br><br>
+
+        <button type="submit">Salva modifiche</button>
+    </form>
+</body>
+</html>
