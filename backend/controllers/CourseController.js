@@ -31,22 +31,33 @@ const editCourseGet = async (req,res) => {
 }
 
 const editCoursePut = async (req,res) => {
-    const { title, description, price, date, mode } = req.body;
-    const course = await Course.findById(req.params.id);
-    if (!course) return res.redirect('/admin/courses');
+    try {
+        const { title, description, price, date, mode } = req.body;
+        const course = await Course.findById(req.params.id);
+        if (!course) return res.redirect('/admin/courses');
 
-    course.title = title;
-    course.description = description;
-    course.price = price;
-    course.date = date;
-    course.mode = mode;
+        course.title = title;
+        course.description = description;
+        course.price = price;
+        course.date = date;
+        course.mode = mode;
 
-    if (req.file) {
-        course.image = '/uploads/' + req.file.filename;
+        if (req.file) {
+            if (course.image && course.image.startsWith('/uploads/')) {
+                const oldImagePath = path.join(__dirname, '..', 'public', course.image)
+                fs.unlink(oldImagePath, (error) => {
+                    if (error) console.error('Errore durante la modifica immagine', error.message)
+                })
+            }
+            course.image = '/uploads/' + req.file.filename;
+        }
+
+        await course.save();
+        res.redirect('/admin/courses');
+    } catch (error) {
+        console.error('Errore aggiornamento corso:', error);
+        res.redirect('/admin/courses');
     }
-
-    await course.save();
-    res.redirect('/admin/courses');
 }
 
 const deleteCourse = async (req,res) => {
