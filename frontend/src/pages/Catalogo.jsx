@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
 import { getCourses } from '../services/courseServices'
+import { Link } from 'react-router-dom'
 
 function Catalogo() {
     const [courses, setCourses] = useState([])
@@ -16,8 +17,10 @@ function Catalogo() {
                 <div key={corso._id} className="border rounded p-4 shadow hover:shadow-lg">
                     <img src={`${backendUrl}${corso.image}`} alt="immagine" />
                     <h2 className="text-xl font-semibold">{corso.title}</h2>
-                    <p>{corso.description?.slice(0, 100)}...</p>
-                    <p className="mt-2 font-bold">{corso.price} €</p>
+                    <h3 className="text-xl font-semibold">{corso.subtitle}</h3>
+                    <h4>€ {corso.price}</h4>
+                    <p>{corso.duration}</p>
+                    <Link to={`/corsi/${corso._id}`}>Informazioni</Link>
                 </div>
                 ))}
             </div>
