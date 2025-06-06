@@ -6,18 +6,41 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="/admin/courses/create-courses" enctype="multipart/form-data" method="POST">
-        <input name="title" placeholder="Titolo" required />
-        <textarea name="description" placeholder="Descrizione"></textarea>
-        <input name="price" type="number" step="0.01" placeholder="Prezzo" required />
-        <input name="date" type="date" />
-        <select name="mode">
+    <h1>Nuovo Corso</h1>
+        <form action="/admin/courses/create-courses" method="POST" enctype="multipart/form-data">
+        <label>Titolo</label>
+        <input type="text" name="title" required />
+
+        <label>Sottotitolo</label>
+        <input type="text" name="subtitle" />
+
+        <label>Descrizione</label>
+        <textarea name="description" required></textarea>
+
+        <label>Prezzo (€)</label>
+        <input type="number" step="0.01" name="price" required />
+
+        <label>Durata</label>
+        <input type="text" name="duration" placeholder="es: 8 ore" />
+
+        <label>Modalità</label>
+        <select name="modality" required>
             <option value="online">Online</option>
             <option value="in presenza">In presenza</option>
             <option value="blended">Blended</option>
         </select>
-        <input type="file" name="image">
-        <button>Salva</button>
+
+        <label>Luogo (se in presenza)</label>
+        <input type="text" name="location" placeholder="es: sede MGL - Lavello" />
+
+        <label>Categorie (separate da virgola)</label>
+        <input type="text" name="categories" placeholder="es: Sicurezza, HACCP" />
+
+        <label>Immagine</label>
+        <input type="file" name="image" accept="image/*" />
+
+        <button type="submit">Salva</button>
     </form>
+
 </body>
 </html>

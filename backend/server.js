@@ -30,6 +30,10 @@ app.use(session({
 const adminRoutes = require('./routes/adminRoutes')
 const api = require('./routes/apiRoutes')
 
+app.get('/', (req,res) => {
+    res.render('home')
+})
+
 app.use('/admin', adminRoutes)
 app.use('/api', api)
 

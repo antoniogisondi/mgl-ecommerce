@@ -9,8 +9,19 @@ const Dashboard = (req,res) => {
 }
 
 const getAllCourses = async (req,res) => {
-    const courses = await Course.find()
+    const courses = await Course.find({}, 'title price image')
     res.render('courses', {courses})
+}
+
+const detailsCourses = async (req,res) => {
+    try {
+        const course = await Course. findById(req.params.id)
+        console.log(typeof course.date)
+        res.render('details-course', {course})
+    } catch (error) {
+        console.error('Errore di navigazione', error)
+        res.redirect('/admin/courses')
+    }
 }
 
 const createCourseGet = (req,res) => {
@@ -18,10 +29,27 @@ const createCourseGet = (req,res) => {
 }
 
 const createCoursePost = async (req,res) => {
-    const {title, description, price, date, mode} = req.body
-    const image = req.file ? '/uploads/' + req.file.filename : ''
-    await Course.create({title, description, price, image, date, mode})
-    res.redirect('/admin/courses')
+    try {
+        const { title, subtitle, description, price, duration, modality, location, categories } = req.body;
+
+        const newCourse = new Course({
+            title,
+            subtitle,
+            description,
+            price,
+            duration,
+            modality,
+            location,
+            categories: categories.split(',').map(c => c.trim()),
+            image: req.file ? '/uploads/' + req.file.filename : ''
+        })
+        
+        await newCourse.save()
+        res.redirect('/admin/courses')
+    } catch (error) {
+        console.error('Errore creazione corso:', error);
+        res.status(500).send('Errore nel salvataggio corso');
+    }
 }
 
 const editCourseGet = async (req,res) => {
@@ -32,15 +60,19 @@ const editCourseGet = async (req,res) => {
 
 const editCoursePut = async (req,res) => {
     try {
-        const { title, description, price, date, mode } = req.body;
-        const course = await Course.findById(req.params.id);
+        const {id} = req.params
+        const { title, subtitle, description, price, duration, modality, location, categories } = req.body;
+        const course = await Course.findById(id);
         if (!course) return res.redirect('/admin/courses');
 
         course.title = title;
+        course.subtitle = subtitle;
         course.description = description;
         course.price = price;
-        course.date = date;
-        course.mode = mode;
+        course.duration = duration;
+        course.modality = modality;
+        course.location = location;
+        course.categories = categories.split(',').map(c => c.trim());
 
         if (req.file) {
             if (course.image && course.image.startsWith('/uploads/')) {
@@ -53,7 +85,7 @@ const editCoursePut = async (req,res) => {
         }
 
         await course.save();
-        res.redirect('/admin/courses');
+        res.redirect(`/admin/courses/${course.id}`);
     } catch (error) {
         console.error('Errore aggiornamento corso:', error);
         res.redirect('/admin/courses');
@@ -81,5 +113,5 @@ const deleteCourse = async (req,res) => {
 }
 
 module.exports = {
-    Dashboard, getAllCourses, createCourseGet, createCoursePost, editCourseGet, editCoursePut, deleteCourse
+    Dashboard, getAllCourses, detailsCourses, createCourseGet, createCoursePost, editCourseGet, editCoursePut, deleteCourse
 }
