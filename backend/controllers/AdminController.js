@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 const loginPage = (req, res) => {
-    res.render('login', { error: null });
+    res.render('auth/login', { error: null });
 };
 
 const loginAdmin = async (req,res) => {
@@ -11,7 +11,7 @@ const loginAdmin = async (req,res) => {
     const admin = await Admin.findOne({email})
 
     if(!admin || !(await bcrypt.compare(password, admin.password))){
-        return res.render('login', {error: 'Credenziali errate'})
+        return res.render('auth/login', {error: 'Credenziali errate'})
     }
 
     req.session.admin = admin

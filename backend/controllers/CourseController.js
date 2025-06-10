@@ -10,14 +10,14 @@ const Dashboard = (req,res) => {
 
 const getAllCourses = async (req,res) => {
     const courses = await Course.find({}, 'title price image')
-    res.render('courses', {courses})
+    res.render('courses/corsi-sicurezza/courses', {courses})
 }
 
 const detailsCourses = async (req,res) => {
     try {
         const course = await Course. findById(req.params.id)
         console.log(typeof course.date)
-        res.render('details-course', {course})
+        res.render('courses/corsi-sicurezza/details-course', {course})
     } catch (error) {
         console.error('Errore di navigazione', error)
         res.redirect('/admin/courses')
@@ -25,7 +25,7 @@ const detailsCourses = async (req,res) => {
 }
 
 const createCourseGet = (req,res) => {
-    res.render('create-course')
+    res.render('courses/corsi-sicurezza/create-course')
 }
 
 const createCoursePost = async (req,res) => {
@@ -55,7 +55,7 @@ const createCoursePost = async (req,res) => {
 const editCourseGet = async (req,res) => {
     const course = await Course.findById(req.params.id)
     if (!course) return res.redirect('/admin/courses');
-    res.render('edit-course', {course})
+    res.render('courses/corsi-sicurezza/edit-course', {course})
 }
 
 const editCoursePut = async (req,res) => {

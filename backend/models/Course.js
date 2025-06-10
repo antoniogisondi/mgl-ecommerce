@@ -1,44 +1,27 @@
 const mongoose = require('mongoose');
 
 const CourseSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true
-    },
-    subtitle: String, // breve descrizione aggiuntiva
-    description: {
-        type: String,
-        required: true
-    },
-    price: {
-        type: Number,
-        required: true
-    },
-    duration: String, // es. "8 ore", "2 giorni"
-    modality: {
-        type: String,
-        enum: ['online', 'in presenza', 'blended'],
-        required: true
-    },
-    location: String, // es. "Sede MGL - Lavello", solo se in presenza
-    image: String, // es. "/uploads/nomefile.jpg"
-    categories: [String], // es. ["Sicurezza", "Privacy"]
-    type: {
+    title: String,
+    description: String,
+    price: Number,
+    duration: String,
+    modality: String,
+    location: String,
+    category: {
         type: String,
         enum: [
-            'Corsi Sicurezza sul Lavoro',
-            'Corsi Sicurezza Attrezzature e Cantiere',
-            'Corsi Crediti Formativi Professionali',
-            'Corsi ECM',
-            'Corsi HACCP',
-            'Corsi Privacy'
+            'Formazione generale e specifica lavoratori',
+            'Antincendio',
+            'Primo soccorso',
+            'HACCP e igiene alimentare',
+            'Attrezzature da lavoro (Accordo Stato-Regioni 2012)',
+            'Lavori in quota e DPI',
+            'Aggiornamento obbligatorio'
         ],
-        required: true,
+        required: true
     },
-    published: {
-        type: Boolean,
-        default: true
-    },
+    subCategory: String, // es: "rischio medio", "carrelli", "DPI III cat"
+    image: String,
 }, {timestamps: true});
 
 module.exports = mongoose.model('Course', CourseSchema);
