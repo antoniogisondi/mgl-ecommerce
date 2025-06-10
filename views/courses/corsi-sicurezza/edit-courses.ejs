@@ -11,9 +11,6 @@
         <label>Titolo</label>
         <input type="text" name="title" value="<%= course.title %>" required />
         
-        <label>Sottotitolo</label>
-        <input type="text" name="subtitle" value="<%= course.subtitle %>" />
-        
         <label>Descrizione</label>
         <textarea name="description" required><%= course.description %></textarea>
         
@@ -32,9 +29,20 @@
         
         <label>Luogo (solo se in presenza)</label>
         <input type="text" name="location" value="<%= course.location %>" />
+
+        <label>Categoria</label>
+        <select name="category" required>
+            <option value="Formazione generale e specifica lavoratori" <%= course.category === 'Formazione generale e specifica lavoratori' ? 'selected' : '' %>>Formazione generale e specifica lavoratori</option>
+            <option value="Antincendio" <%= course.category === 'Antincendio' ? 'selected' : '' %>>Antincendio</option>
+            <option value="Primo soccorso" <%= course.category === 'Primo soccorso' ? 'selected' : '' %>>Primo soccorso</option>
+            <option value="HACCP e igiene alimentare" <%= course.category === 'HACCP e igiene alimentare' ? 'selected' : '' %>>HACCP e igiene alimentare</option>
+            <option value="Attrezzature da lavoro (Accordo Stato-Regioni 2012)" <%= course.category === 'Attrezzature da lavoro (Accordo Stato-Regioni 2012)' ? 'selected' : '' %>>Attrezzature da lavoro (Accordo Stato-Regioni 2012)</option>
+            <option value="Lavori in quota e DPI" <%= course.category === 'Lavori in quota e DPI' ? 'selected' : '' %>>Lavori in quota e DPI</option>
+            <option value="Aggiornamento obbligatorio" <%= course.category === 'Aggiornamento obbligatorio' ? 'selected' : '' %>>Aggiornamento obbligatorio</option>
+        </select>
         
-        <label>Categorie (separate da virgola)</label>
-        <input type="text" name="categories" value="<%= course.categories.join(', ') %>" />
+        <label>Sottocategorie (separate da virgola)</label>
+        <input type="text" name="subCategory" value="<%= course.subCategory.join(', ') %>" />
         
         <% if (course.image) { %>
             <p>Immagine attuale:</p>

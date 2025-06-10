@@ -20,7 +20,7 @@ const CourseSchema = new mongoose.Schema({
         ],
         required: true
     },
-    subCategory: String, // es: "rischio medio", "carrelli", "DPI III cat"
+    subCategory: [String], // es: "rischio medio", "carrelli", "DPI III cat"
     image: String,
 }, {timestamps: true});
 

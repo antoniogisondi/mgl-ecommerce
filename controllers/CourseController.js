@@ -12,7 +12,7 @@ const detailsCourses = async (req,res) => {
     try {
         const course = await Course. findById(req.params.id)
         console.log(typeof course.date)
-        res.render('courses/corsi-sicurezza/details-course', {course})
+        res.render('courses/corsi-sicurezza/details-courses', {course})
     } catch (error) {
         console.error('Errore di navigazione', error)
         res.redirect('/admin/courses')
@@ -20,22 +20,22 @@ const detailsCourses = async (req,res) => {
 }
 
 const createCourseGet = (req,res) => {
-    res.render('courses/corsi-sicurezza/create-course')
+    res.render('courses/corsi-sicurezza/create-courses')
 }
 
 const createCoursePost = async (req,res) => {
     try {
-        const { title, subtitle, description, price, duration, modality, location, categories } = req.body;
+        const { title, description, price, duration, modality, location, category, subCategory } = req.body;
 
         const newCourse = new Course({
             title,
-            subtitle,
             description,
             price,
             duration,
             modality,
             location,
-            categories: categories.split(',').map(c => c.trim()),
+            category,
+            subCategory: subCategory.split(',').map(c => c.trim()),
             image: req.file ? '/uploads/' + req.file.filename : ''
         })
         
@@ -50,24 +50,24 @@ const createCoursePost = async (req,res) => {
 const editCourseGet = async (req,res) => {
     const course = await Course.findById(req.params.id)
     if (!course) return res.redirect('/admin/courses');
-    res.render('courses/corsi-sicurezza/edit-course', {course})
+    res.render('courses/corsi-sicurezza/edit-courses', {course})
 }
 
 const editCoursePut = async (req,res) => {
     try {
         const {id} = req.params
-        const { title, subtitle, description, price, duration, modality, location, categories } = req.body;
+        const { title, description, price, duration, modality, location, category, subCategory } = req.body;
         const course = await Course.findById(id);
         if (!course) return res.redirect('/admin/courses');
 
         course.title = title;
-        course.subtitle = subtitle;
         course.description = description;
         course.price = price;
         course.duration = duration;
         course.modality = modality;
         course.location = location;
-        course.categories = categories.split(',').map(c => c.trim());
+        course.category = category
+        course.subCategory = Array.isArray(subCategory) ? subCategory : typeof subCategory === 'string' ? subCategory.split(',').map(c => c.trim()) : [];
 
         if (req.file) {
             if (course.image && course.image.startsWith('/uploads/')) {
