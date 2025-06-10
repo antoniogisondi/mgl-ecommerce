@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const {loginAdmin, loginPage} = require('../controllers/AdminController')
-const {Dashboard, getAllCourses, detailsCourses, createCourseGet, createCoursePost, editCourseGet, editCoursePut, deleteCourse} = require('../controllers/CourseController')
+const {loginAdmin, loginPage, Dashboard} = require('../controllers/AdminController')
+const { getAllCourses, detailsCourses, createCourseGet, createCoursePost, editCourseGet, editCoursePut, deleteCourse} = require('../controllers/CourseController')
+const {getCourses} = require('../controllers/ProfessionalCourseController')
 const upload = require('../middleware/uploadMiddleware')
 
 const ensureAdmin = (req,res,next) => {
@@ -15,6 +16,7 @@ router.post('/login', loginAdmin)
 router.get('/dashboard', ensureAdmin, Dashboard)
 
 router.get('/courses', ensureAdmin, getAllCourses)
+router.get('/professional-course', ensureAdmin, getCourses)
 
 router.get('/courses/create-courses', ensureAdmin, createCourseGet)
 router.post('/courses/create-courses', ensureAdmin, upload.single('image'), createCoursePost)

@@ -18,6 +18,10 @@ const loginAdmin = async (req,res) => {
     res.redirect('/admin/dashboard')
 }
 
+const Dashboard = (req,res) => {
+    res.render('dashboard', {admin: req.session.admin})
+}
+
 module.exports = {
-    loginAdmin, loginPage
+    loginAdmin, loginPage, Dashboard
 }

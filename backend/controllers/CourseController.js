@@ -3,14 +3,9 @@ const fs = require('fs');
 const path = require('path');
 
 
-const Dashboard = (req,res) => {
-    console.log(req.session.admin)
-    res.render('dashboard', {admin: req.session.admin})
-}
-
 const getAllCourses = async (req,res) => {
     const courses = await Course.find({}, 'title price image')
-    res.render('courses/corsi-sicurezza/courses', {courses})
+    res.render('courses/corsi-sicurezza/view-courses', {courses})
 }
 
 const detailsCourses = async (req,res) => {
@@ -113,5 +108,5 @@ const deleteCourse = async (req,res) => {
 }
 
 module.exports = {
-    Dashboard, getAllCourses, detailsCourses, createCourseGet, createCoursePost, editCourseGet, editCoursePut, deleteCourse
+    getAllCourses, detailsCourses, createCourseGet, createCoursePost, editCourseGet, editCoursePut, deleteCourse
 }
