@@ -11,7 +11,6 @@ const getAllCourses = async (req,res) => {
 const detailsCourses = async (req,res) => {
     try {
         const course = await Course. findById(req.params.id)
-        console.log(typeof course.date)
         res.render('courses/corsi-sicurezza/details-courses', {course})
     } catch (error) {
         console.error('Errore di navigazione', error)

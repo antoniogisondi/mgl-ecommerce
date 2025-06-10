@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Modifica Corso</h1>
+    <form action="/admin/professional-courses/edit/<%= course._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+        <label>Titolo</label>
+        <input type="text" name="title" value="<%= course.title %>" required />
+
+        <label>Sottotitolo</label>
+        <input type="text" name="subtitle" value="<%= course.subtitle %>" required />
+        
+        <label>Descrizione</label>
+        <textarea name="description" required><%= course.description %></textarea>
+        
+        <label>Prezzo (€)</label>
+        <input type="number" step="0.01" name="price" value="<%= course.price %>" required />
+        
+        <label>Durata</label>
+        <input type="text" name="duration" value="<%= course.duration %>" />
+        
+        <label>Modalità</label>
+        <select name="modality" required>
+            <option value="online" <%= course.modality === 'online' ? 'selected' : '' %>>Online</option>
+            <option value="in presenza" <%= course.modality === 'in presenza' ? 'selected' : '' %>>In presenza</option>
+            <option value="blended" <%= course.modality === 'blended' ? 'selected' : '' %>>Blended</option>
+        </select>
+        
+        <label>Luogo (solo se in presenza)</label>
+        <input type="text" name="location" value="<%= course.location %>" />
+
+        <label>Categoria</label>
+        <select name="trainingType" required>
+            <option value="gol" <%= course.trainingType === 'gol' ? 'selected' : '' %>>GOL</option>
+            <option value="pagamento" <%= course.trainingType === 'pagamento' ? 'selected' : '' %>>A pagamento</option>
+        </select>
+        
+        <label>Sottocategorie (separate da virgola)</label>
+        <input type="text" name="courseCategory" value="<%= course.courseCategory.join(', ') %>" />
+        
+        <% if (course.image) { %>
+            <p>Immagine attuale:</p>
+            <img src="<%= course.image %>" alt="immagine corso" width="200" />
+        <% } %>
+        
+        <label>Nuova immagine (opzionale)</label>
+        <input type="file" name="image" accept="image/*" />
+        
+        <button type="submit">Aggiorna</button>
+    </form>
+</body>
+</html>

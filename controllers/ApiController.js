@@ -1,9 +1,10 @@
 const Course = require('../models/Course')
+const ProfessionalCourse = require('../models/ProfessionalCourse')
 const mongoose = require('mongoose')
 
 const getApiCourses = async (req,res) => {
     try {
-        const courses = await Course.find({}, 'title subtitle price duration image')
+        const courses = await Course.find({}, 'title description price duration image')
         res.json(courses)
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -20,7 +21,7 @@ const getApiCoursesDetails = async (req,res) => {
     try {
         const course = await Course.findById(id)
 
-        if (!course || !course.published) {
+        if (!course) {
             return res.status(404).json({ error: 'Corso non trovato' });
         }
 
@@ -31,4 +32,13 @@ const getApiCoursesDetails = async (req,res) => {
     }
 }
 
-module.exports = {getApiCourses, getApiCoursesDetails}
+const getApiProfessionalCourses = async (req,res) => {
+    try {
+        const courses = await ProfessionalCourse.find({}, 'title subtitle description price duration image')
+        res.json(courses)
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+module.exports = {getApiCourses, getApiCoursesDetails, getApiProfessionalCourses}

@@ -13,7 +13,7 @@ const professionalCourseSchema = new mongoose.Schema({
         enum: ['gol', 'pagamento'],
         required: true
     },
-    courseCategory: String,    // es. 'Competenze Digitali', 'OSS', 'Grafica'
+    courseCategory: [String],    // es. 'Competenze Digitali', 'OSS', 'Grafica'
     image: String,
 }, {timestamps: true});
 
