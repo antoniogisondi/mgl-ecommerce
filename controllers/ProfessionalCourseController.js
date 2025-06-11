@@ -29,7 +29,7 @@ const createCoursesPost = async (req,res) => {
         })
 
         await newCourse.save()
-        res.redirect('/admin/professional-course')
+        res.redirect('/admin/professional-courses')
 
     } catch (error) {
         console.error('Errore creazione corso:', error);
@@ -88,6 +88,26 @@ const EditCoursesPut = async (req,res) => {
     }
 }
 
+const DeleteCourse = async (req,res) => {
+    try {
+        const course = await ProfessionalCourse.findById(req.params.id)
+        if (!course) return res.redirect('/admin/professional-courses');
+
+        if (course.image) {
+            const imagePath = path.join(__dirname, '..', 'public', course.image)
+            fs.unlink(imagePath, (err) => {
+                if(err) console.error('Errore eliminazione immagine:', err.message);
+            })
+        }
+
+        await ProfessionalCourse.findByIdAndDelete(req.params.id)
+        res.redirect('/admin/professional-courses');
+    } catch (error) {
+        console.error('Errore eliminazione corso:', error);
+        res.redirect('/admin/professional-courses');
+    }
+}
+
 module.exports = {
-    getCourses, createCoursesGet, createCoursesPost, DetailsCourses, EditCoursesGet, EditCoursesPut
+    getCourses, createCoursesGet, createCoursesPost, DetailsCourses, EditCoursesGet, EditCoursesPut, DeleteCourse
 }

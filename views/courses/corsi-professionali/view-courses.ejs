@@ -15,10 +15,9 @@
         <li><%= course.subtitle %></li>
         <li><%= course.duration %> ore</li>
         <li><%= course.modality %></li>
-        <li><%= course.image %></li>
         <a href="/admin/professional-courses/<%= course._id %>">Vai al dettaglio del corso</a>
         <a href="/admin/professional-courses/edit/<%= course._id %>">Modifica il corso</a>
-        <form method="POST" action="/admin/courses/delete/<%= course._id %>?_method=DELETE" style="display:inline;">
+        <form method="POST" action="/admin/professional-courses/delete/<%= course._id %>?_method=DELETE" style="display:inline;">
             <button type="submit" onclick="return confirm('Eliminare questo corso?')">🗑️</button>
         </form>
     <% }) %>

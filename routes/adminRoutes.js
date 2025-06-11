@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const {loginAdmin, loginPage, Dashboard} = require('../controllers/AdminController')
 const { getAllCourses, detailsCourses, createCourseGet, createCoursePost, editCourseGet, editCoursePut, deleteCourse} = require('../controllers/CourseController')
-const {getCourses, createCoursesGet, createCoursesPost, DetailsCourses, EditCoursesGet, EditCoursesPut} = require('../controllers/ProfessionalCourseController')
+const {getCourses, createCoursesGet, createCoursesPost, DetailsCourses, EditCoursesGet, EditCoursesPut, DeleteCourse} = require('../controllers/ProfessionalCourseController')
 const upload = require('../middleware/uploadMiddleware')
 
 const ensureAdmin = (req,res,next) => {
@@ -33,6 +33,7 @@ router.put('/courses/edit/:id', ensureAdmin, upload.single('image'), editCourseP
 router.get('/professional-courses/edit/:id', ensureAdmin, EditCoursesGet)
 router.put('/professional-courses/edit/:id', ensureAdmin, upload.single('image'), EditCoursesPut)
 
+router.delete('/professional-courses/delete/:id', ensureAdmin, DeleteCourse)
 router.delete('/courses/delete/:id', ensureAdmin, deleteCourse)
 
 module.exports = router
