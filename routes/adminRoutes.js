@@ -3,6 +3,7 @@ const router = express.Router()
 const {loginAdmin, loginPage, Dashboard} = require('../controllers/AdminController')
 const { getAllCourses, detailsCourses, createCourseGet, createCoursePost, editCourseGet, editCoursePut, deleteCourse} = require('../controllers/CourseController')
 const {getCourses, createCoursesGet, createCoursesPost, DetailsCourses, EditCoursesGet, EditCoursesPut, DeleteCourse} = require('../controllers/ProfessionalCourseController')
+const { getAllRequests } = require('../controllers/ContactController')
 const upload = require('../middleware/uploadMiddleware')
 
 const ensureAdmin = (req,res,next) => {
@@ -14,6 +15,8 @@ router.get('/login', loginPage)
 router.post('/login', loginAdmin)
 
 router.get('/dashboard', ensureAdmin, Dashboard)
+
+router.get('/requests', ensureAdmin, getAllRequests)
 
 router.get('/courses', ensureAdmin, getAllCourses)
 router.get('/professional-courses', ensureAdmin, getCourses)

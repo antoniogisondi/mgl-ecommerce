@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Richieste di informazioni</h1>
+    <table border="1" cellpadding="10">
+    <thead>
+        <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Telefono</th>
+        <th>Messaggio</th>
+        <th>Corso</th>
+        <th>Data</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% requests.forEach(r => { %>
+        <tr>
+            <td><%= r.name %></td>
+            <td><%= r.email %></td>
+            <td><%= r.phone %></td>
+            <td><%= r.message %></td>
+            <td>
+            <%= r.courseModel %>: <%= r.courseId ? r.courseId.title : 'N/A' %>
+            </td>
+            <td><%= r.createdAt.toLocaleString() %></td>
+        </tr>
+        <% }) %>
+    </tbody>
+    </table>
+
+</body>
+</html>
