@@ -5,7 +5,7 @@ const getAllRequests = async (req,res) => {
         const requests = await ContactRequest.find().populate('courseId')
         .sort({createdAt: -1})
 
-        res.render('requests/view-requests', {requests})
+        res.render('admin/requests/view-requests', {requests})
     } catch (error) {
         console.error('Errore nel recupero delle richieste:', error);
         res.status(500).send('Errore del server');

@@ -4,11 +4,11 @@ const fs = require('fs')
 
 const getCourses = async (req,res) => {
     const courses = await ProfessionalCourse.find({}, 'title subtitle duration modality image')
-    res.render('courses/corsi-professionali/view-courses', {courses})
+    res.render('admin/courses/corsi-professionali/view-courses', {courses})
 }
 
 const createCoursesGet = (req,res) => {
-    res.render('courses/corsi-professionali/create-courses')
+    res.render('admin/courses/corsi-professionali/create-courses')
 }
 
 const createCoursesPost = async (req,res) => {
@@ -40,7 +40,7 @@ const createCoursesPost = async (req,res) => {
 const DetailsCourses = async (req,res) => {
     try {
         const course = await ProfessionalCourse.findById(req.params.id)
-        res.render('courses/corsi-professionali/details-courses', {course})
+        res.render('admin/courses/corsi-professionali/details-courses', {course})
     } catch (error) {
         console.error('Errore di navigazione', error)
         res.redirect('/admin/professional-courses')
@@ -50,7 +50,7 @@ const DetailsCourses = async (req,res) => {
 const EditCoursesGet = async (req,res) => {
     const course = await ProfessionalCourse.findById(req.params.id)
     if (!course) return res.redirect('/admin/professional-courses');
-    res.render('courses/corsi-professionali/edit-courses', {course})
+    res.render('admin/courses/corsi-professionali/edit-courses', {course})
 }
 
 const EditCoursesPut = async (req,res) => {

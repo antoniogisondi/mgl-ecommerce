@@ -5,13 +5,13 @@ const path = require('path');
 
 const getAllCourses = async (req,res) => {
     const courses = await Course.find({}, 'title price image')
-    res.render('courses/corsi-sicurezza/view-courses', {courses})
+    res.render('admin/courses/corsi-sicurezza/view-courses', {courses})
 }
 
 const detailsCourses = async (req,res) => {
     try {
         const course = await Course. findById(req.params.id)
-        res.render('courses/corsi-sicurezza/details-courses', {course})
+        res.render('admin/courses/corsi-sicurezza/details-courses', {course})
     } catch (error) {
         console.error('Errore di navigazione', error)
         res.redirect('/admin/courses')
@@ -19,7 +19,7 @@ const detailsCourses = async (req,res) => {
 }
 
 const createCourseGet = (req,res) => {
-    res.render('courses/corsi-sicurezza/create-courses')
+    res.render('admin/courses/corsi-sicurezza/create-courses')
 }
 
 const createCoursePost = async (req,res) => {
@@ -49,7 +49,7 @@ const createCoursePost = async (req,res) => {
 const editCourseGet = async (req,res) => {
     const course = await Course.findById(req.params.id)
     if (!course) return res.redirect('/admin/courses');
-    res.render('courses/corsi-sicurezza/edit-courses', {course})
+    res.render('admin/courses/corsi-sicurezza/edit-courses', {course})
 }
 
 const editCoursePut = async (req,res) => {

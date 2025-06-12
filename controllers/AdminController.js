@@ -19,7 +19,7 @@ const loginAdmin = async (req,res) => {
 }
 
 const Dashboard = (req,res) => {
-    res.render('dashboard', {admin: req.session.admin})
+    res.render('admin/dashboard', {admin: req.session.admin})
 }
 
 module.exports = {
