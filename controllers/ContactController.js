@@ -14,9 +14,9 @@ const getAllRequests = async (req,res) => {
 
 const sendContactRequest = async (req,res) => {
     try {
-        const { name, email, phone, message, courseId, courseModel } = req.body;
+        const { name, email, phone, message, course, courseId } = req.body;
 
-        if (!courseId || !courseModel) {
+        if ( !name || ! email || !phone || !message ) {
             return res.status(400).json({ error: 'Dati corso mancanti' });
         }
 
@@ -25,8 +25,8 @@ const sendContactRequest = async (req,res) => {
             email,
             phone,
             message,
+            course,
             courseId,
-            courseModel
         });
 
         await newRequest.save()

@@ -24,7 +24,7 @@
             <td><%= r.phone %></td>
             <td><%= r.message %></td>
             <td>
-            <%= r.courseModel %>: <%= r.courseId ? r.courseId.title : 'N/A' %>
+            <%= r.courseId ? r.courseId.title : r.course %>
             </td>
             <td><%= r.createdAt.toLocaleString() %></td>
         </tr>

@@ -5,16 +5,10 @@ const contactRequestSchema = new mongoose.Schema({
     email: { type: String, required: true },
     phone: String,
     message: { type: String, required: true },
-
+    course: String,
     courseId: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        refPath: 'courseModel'
-    },
-    courseModel: {
-        type: String,
-        required: true,
-        enum: ['Course', 'ProfessionalCourse']
+        ref: 'ProfessionalCourse'
     },
 }, {timestamps: true});
 
