@@ -1,4 +1,5 @@
 const ContactRequest = require('../models/ContactRequest')
+const sendContactEmail = require('../utils/sendMail')
 
 const getAllRequests = async (req,res) => {
     try {
@@ -14,14 +15,15 @@ const getAllRequests = async (req,res) => {
 
 const sendContactRequest = async (req,res) => {
     try {
-        const { name, email, phone, message, course, courseId } = req.body;
+        const { name, surname, email, phone, message, course, courseId } = req.body;
 
-        if ( !name || ! email || !phone || !message ) {
+        if ( !name || !surname || ! email || !phone || !message ) {
             return res.status(400).json({ error: 'Dati corso mancanti' });
         }
 
         const newRequest = new ContactRequest({
             name,
+            surname,
             email,
             phone,
             message,
@@ -30,6 +32,10 @@ const sendContactRequest = async (req,res) => {
         });
 
         await newRequest.save()
+
+        const populatedRequest = await ContactRequest.findById(newRequest._id).populate('courseId')
+
+        await sendContactEmail({ name, surname, email, phone, message, course, courseId: populatedRequest.courseId })
 
         res.status(200).json({message: 'Richiesta inviata con successo'})
     } catch (error) {
